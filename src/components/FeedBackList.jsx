@@ -1,12 +1,13 @@
 import FeedBackItem from './FeedBackItem'   
 
-function FeedBackList({feedBack}) {
-    if (!feedBack || feedBack.lenght === 0) {
+function FeedBackList({feedBack, handleDelete}) {
+    console.log(feedBack.length);
+    if (!feedBack || feedBack.length === 0) {
         return <div>No ratings</div>
     }
 
     var feedBackListItems = feedBack.map((item)=>(
-        <FeedBackItem key={item.id} item={item}></FeedBackItem>
+        <FeedBackItem key={item.id} item={item} handleDelete={handleDelete}></FeedBackItem>
     ));
 
     return (
