@@ -1,7 +1,6 @@
 import FeedBackItem from './FeedBackItem'   
 
 function FeedBackList({feedBack, handleDelete}) {
-    console.log(feedBack.length);
     if (!feedBack || feedBack.length === 0) {
         return <div>No ratings</div>
     }

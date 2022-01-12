@@ -3,6 +3,7 @@ import FeedBackList from "./components/FeedBackList"
 import { useState } from "react"
 import FeedBackData from './Data/FeedBackData'
 import FeedBackStats from "./components/FeedBackStats"
+import FeedBackForm from "./components/FeedBackForm"
 
 function App() {
     var [feedBack, setFeedBack] = useState(FeedBackData)
@@ -18,6 +19,7 @@ function App() {
         <>
             <Header ></Header>
             <div className="container">
+                <FeedBackForm></FeedBackForm>
                 <FeedBackStats feedBack={feedBack}></FeedBackStats>
                 <FeedBackList feedBack={feedBack} handleDelete={handleDelete}></FeedBackList>
             </div>
