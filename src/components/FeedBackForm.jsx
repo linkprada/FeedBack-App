@@ -1,9 +1,11 @@
 import { useState } from "react/cjs/react.development"
+import RatingSelect from "./RatingSelect";
 import Button from "./shared/Button";
 import Card from "./shared/Card"
 
 function FeedBackForm() {
     const [text, setText] = useState('');
+    const [rating, setRating] = useState(10);
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState("");
 
@@ -12,7 +14,7 @@ function FeedBackForm() {
             setBtnDisabled(true);
             setValidationMessage(null);
         }
-        else if (text !== "" && text.trim().length < 10) {
+        else if (text !== "" && text.trim().length < 9) {
             setBtnDisabled(true);
             setValidationMessage("Text must be at least 10 characters");
         }
@@ -24,10 +26,13 @@ function FeedBackForm() {
         setText(e.target.value);
     }
 
+    const getSelectedRating = (rating) => setRating(rating);
+
     return (
         <Card>
             <form method="post">
                 <h2>How do you rate this app</h2>
+                <RatingSelect selectedRating={getSelectedRating}></RatingSelect>
                 <div className="input-group">
                     <input onChange={handleTextChange} type="text" placeholder="Write a review" value={text}/>
                     <Button type='submit' isDisabled={btnDisabled} children='Send'></Button>
