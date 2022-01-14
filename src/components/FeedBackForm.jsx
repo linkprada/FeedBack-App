@@ -3,7 +3,7 @@ import RatingSelect from "./RatingSelect";
 import Button from "./shared/Button";
 import Card from "./shared/Card"
 
-function FeedBackForm() {
+function FeedBackForm({handleAdd}) {
     const [text, setText] = useState('');
     const [rating, setRating] = useState(10);
     const [btnDisabled, setBtnDisabled] = useState(true);
@@ -28,9 +28,22 @@ function FeedBackForm() {
 
     const getSelectedRating = (rating) => setRating(rating);
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (text.trim().length > 9) {
+            var newFeedBack = {
+                text,
+                rating,
+            }
+            handleAdd(newFeedBack);
+        }
+
+    }
+
     return (
         <Card>
-            <form method="post">
+            <form onSubmit={handleSubmit}>
                 <h2>How do you rate this app</h2>
                 <RatingSelect selectedRating={getSelectedRating}></RatingSelect>
                 <div className="input-group">
@@ -38,7 +51,7 @@ function FeedBackForm() {
                     <Button type='submit' isDisabled={btnDisabled} children='Send'></Button>
                 </div>
             </form>
-            {validationMessage && <div>{validationMessage}</div>}
+            {validationMessage && <div className="message">{validationMessage}</div>}
         </Card>
     )
 }
