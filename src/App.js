@@ -7,6 +7,7 @@ import FeedBackStats from "./components/FeedBackStats"
 import FeedBackForm from "./components/FeedBackForm"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AboutPage from "./Pages/AboutPage";
+import AboutPageIcon from "./components/AboutPageIcon";
 
 function App() {
     var [feedBack, setFeedBack] = useState(FeedBackData)
@@ -33,6 +34,7 @@ function App() {
                             <FeedBackForm handleAdd={handleAdd}></FeedBackForm>
                             <FeedBackStats feedBack={feedBack}></FeedBackStats>
                             <FeedBackList feedBack={feedBack} handleDelete={handleDelete}></FeedBackList>
+                            <AboutPageIcon></AboutPageIcon>
                         </>
                     }>
                     </Route>
