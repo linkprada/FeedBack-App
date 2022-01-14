@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import FeedBackItem from './FeedBackItem'   
 
 function FeedBackList({feedBack, handleDelete}) {
@@ -6,12 +7,16 @@ function FeedBackList({feedBack, handleDelete}) {
     }
 
     var feedBackListItems = feedBack.map((item)=>(
-        <FeedBackItem key={item.id} item={item} handleDelete={handleDelete}></FeedBackItem>
+        <motion.div key={item.id} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+            <FeedBackItem item={item} handleDelete={handleDelete}></FeedBackItem>
+        </motion.div>
     ));
 
     return (
         <div className="feedback-list">
-            {feedBackListItems}
+            <AnimatePresence>
+                {feedBackListItems}
+            </AnimatePresence>
         </div>
     )
 }
