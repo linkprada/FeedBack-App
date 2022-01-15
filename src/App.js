@@ -8,6 +8,7 @@ import FeedBackForm from "./components/FeedBackForm"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AboutPage from "./Pages/AboutPage";
 import AboutPageIcon from "./components/AboutPageIcon";
+import { FeedbackProvider } from "./context/FeedBackContext";
 
 function App() {
     var [feedBack, setFeedBack] = useState(FeedBackData)
@@ -25,24 +26,26 @@ function App() {
     }
 
     return (
-        <Router>
-            <Header></Header>
-            <div className="container">
-                <Routes>
-                    <Route exact path='/' element={
-                        <>
-                            <FeedBackForm handleAdd={handleAdd}></FeedBackForm>
-                            <FeedBackStats feedBack={feedBack}></FeedBackStats>
-                            <FeedBackList feedBack={feedBack} handleDelete={handleDelete}></FeedBackList>
-                            <AboutPageIcon></AboutPageIcon>
-                        </>
-                    }>
-                    </Route>
+        <FeedbackProvider>
+            <Router>
+                <Header></Header>
+                <div className="container">
+                    <Routes>
+                        <Route exact path='/' element={
+                            <>
+                                <FeedBackForm handleAdd={handleAdd}></FeedBackForm>
+                                <FeedBackStats></FeedBackStats>
+                                <FeedBackList handleDelete={handleDelete}></FeedBackList>
+                                <AboutPageIcon></AboutPageIcon>
+                            </>
+                        }>
+                        </Route>
 
-                    <Route path='/about' element={<AboutPage></AboutPage>}></Route>
-                </Routes>
-            </div>
-        </Router>
+                        <Route path='/about' element={<AboutPage></AboutPage>}></Route>
+                    </Routes>
+                </div>
+            </Router>
+        </FeedbackProvider>
     )
 }
 

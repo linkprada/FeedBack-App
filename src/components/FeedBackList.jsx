@@ -1,7 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { useContext } from "react";
+import FeedbackContext from "../context/FeedBackContext";
 import FeedBackItem from './FeedBackItem'   
 
-function FeedBackList({feedBack, handleDelete}) {
+function FeedBackList({handleDelete}) {
+    const {feedBack} = useContext(FeedbackContext);
+    
     if (!feedBack || feedBack.length === 0) {
         return <div>No ratings</div>
     }

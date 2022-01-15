@@ -1,4 +1,9 @@
-function FeedBackStats({feedBack}) {
+import { useContext } from "react";
+import FeedbackContext from "../context/FeedBackContext";
+
+function FeedBackStats() {
+    const {feedBack} = useContext(FeedbackContext);
+
     let average = feedBack.reduce((acc, cur) => acc + cur.rating, 0) / feedBack.length;
 
     average = average.toFixed(1).replace(/[.,]0$/,"");
