@@ -1,13 +1,16 @@
-import { useState } from "react/cjs/react.development"
+import { useContext, useState } from "react/cjs/react.development"
+import FeedbackContext from "../context/FeedBackContext";
 import RatingSelect from "./RatingSelect";
 import Button from "./shared/Button";
 import Card from "./shared/Card"
 
-function FeedBackForm({handleAdd}) {
+function FeedBackForm() {
     const [text, setText] = useState('');
     const [rating, setRating] = useState(10);
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState("");
+
+    const {addFeedBack} = useContext(FeedbackContext);
 
     var handleTextChange = (e) => {
         if (text === "") {
@@ -36,7 +39,7 @@ function FeedBackForm({handleAdd}) {
                 text,
                 rating,
             }
-            handleAdd(newFeedBack);
+            addFeedBack(newFeedBack);
         }
 
     }

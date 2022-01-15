@@ -1,16 +1,25 @@
+import { v4 as uuidv4 } from "uuid";
 import { createContext, useState } from 'react'
+import FeedbackData from "../Data/FeedBackData";
 
 const FeedbackContext = createContext()
 
 export const FeedbackProvider = ({ children }) => {
-    const defaultFeedBack = [{
-        id: 1,
-        text: "This is a review from context",
-        rating: 10,
-    }];
-    const [feedBack, setFeedBack] = useState(defaultFeedBack);
+    const [feedBack, setFeedBack] = useState(FeedbackData);
 
-    return <FeedbackContext.Provider value={{feedBack}}>
+    const addFeedBack = (newFeedBack) => {
+        newFeedBack.id = uuidv4();
+        setFeedBack([newFeedBack, ...feedBack]);
+    }
+
+    const deleteFeedBack = (id)=>{
+        if (window.confirm("Are you sure you want to delete this rating?")) {
+            var feedBackWithoutDeletedItem = feedBack.filter((item)=> item.id !== id);
+            setFeedBack(feedBackWithoutDeletedItem);
+        }
+    }
+
+    return <FeedbackContext.Provider value={{feedBack, addFeedBack, deleteFeedBack}}>
         {children}
     </FeedbackContext.Provider>
 }

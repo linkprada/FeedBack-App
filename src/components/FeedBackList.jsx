@@ -3,7 +3,7 @@ import { useContext } from "react";
 import FeedbackContext from "../context/FeedBackContext";
 import FeedBackItem from './FeedBackItem'   
 
-function FeedBackList({handleDelete}) {
+function FeedBackList() {
     const {feedBack} = useContext(FeedbackContext);
     
     if (!feedBack || feedBack.length === 0) {
@@ -12,7 +12,7 @@ function FeedBackList({handleDelete}) {
 
     var feedBackListItems = feedBack.map((item)=>(
         <motion.div key={item.id} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
-            <FeedBackItem item={item} handleDelete={handleDelete}></FeedBackItem>
+            <FeedBackItem item={item}></FeedBackItem>
         </motion.div>
     ));
 
