@@ -50,11 +50,14 @@ function FeedBackForm() {
             }
 
             if (feedBackEdit.edit === true) {
-                updateFeedBack(feedBackEdit.item.id, newFeedBack)
+                updateFeedBack(feedBackEdit.item.id, newFeedBack);
             }
             else{
                 addFeedBack(newFeedBack);
             }
+
+            setText('');
+            setBtnDisabled(true);
         }
 
     }
