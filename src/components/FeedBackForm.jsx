@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useContext, useState } from "react/cjs/react.development"
 import FeedbackContext from "../context/FeedBackContext";
 import RatingSelect from "./RatingSelect";
@@ -10,7 +11,15 @@ function FeedBackForm() {
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [validationMessage, setValidationMessage] = useState("");
 
-    const {addFeedBack} = useContext(FeedbackContext);
+    const {addFeedBack, feedBackEdit} = useContext(FeedbackContext);
+
+    useEffect(() => {
+        if (feedBackEdit.edit === true) {
+            setBtnDisabled(false);
+            setText(feedBackEdit.item.text);
+            setRating(feedBackEdit.item.rating);
+        }
+    }, [feedBackEdit])
 
     var handleTextChange = (e) => {
         if (text === "") {
