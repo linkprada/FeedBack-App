@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { createContext, useEffect, useState } from 'react'
 
 const FeedbackContext = createContext()
@@ -16,29 +15,50 @@ export const FeedbackProvider = ({ children }) => {
     }, [])
     
     const fetchFeedBack = async () => {
-        const response = await fetch("http://localhost:3030/feedback?_sort=id&_order=desc");
+        const response = await fetch("/feedback?_sort=id&_order=desc");
         const data = await response.json();
         
         setFeedBack(data);
         setIsLoading(false);
     }
 
-    const addFeedBack = (newFeedBack) => {
-        newFeedBack.id = uuidv4();
-        setFeedBack([newFeedBack, ...feedBack]);
+    const addFeedBack = async (newFeedBack) => {
+        const response = await fetch("/feedback",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newFeedBack),
+        });
+        const data = await response.json();
+
+        setFeedBack([data, ...feedBack]);
     }
 
-    const deleteFeedBack = (id)=>{
+    const deleteFeedBack = async (id)=>{
         if (window.confirm("Are you sure you want to delete this rating?")) {
+            await fetch(`/feedback/${id}`,{
+                method: "DELETE",
+            });
+
             var feedBackWithoutDeletedItem = feedBack.filter((item)=> item.id !== id);
             setFeedBack(feedBackWithoutDeletedItem);
         }
     }
 
-    const updateFeedBack = (id, updatedItem) => {
+    const updateFeedBack = async (id, updatedItem) => {
+        const response = await fetch(`/feedback/${id}`,{
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedItem),
+        });
+        const data = await response.json();
+
         var updatedFeedBacks = feedBack.map((item) => {
             if (item.id === id) {
-                return {...item, ...updatedItem};
+                return {...item, ...data};
             }
             return item;
         })

@@ -2,12 +2,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useContext } from "react";
 import FeedbackContext from "../context/FeedBackContext";
 import FeedBackItem from './FeedBackItem'   
+import Spinner from "./shared/Spinner";
 
 function FeedBackList() {
-    const {feedBack} = useContext(FeedbackContext);
+    const {feedBack, isLoading} = useContext(FeedbackContext);
     
-    if (!feedBack || feedBack.length === 0) {
+    if (!isLoading && (!feedBack || feedBack.length === 0)) {
         return <div>No ratings</div>
+    }
+
+    if (isLoading) {
+        return <Spinner></Spinner>
     }
 
     var feedBackListItems = feedBack.map((item)=>(
